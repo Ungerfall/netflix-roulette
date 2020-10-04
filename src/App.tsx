@@ -1,23 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import HelloWorldFunctionalComponent from './component/HelloWorldFunctionalComponent';
+import HelloWorldClassComponent from './component/HelloWorldClassComponent';
+import HelloWorldClassPureComponent from './component/HelloWorldClassPureComponent';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <table >
+          <tr>
+            <td>Functional component</td>
+            <td>
+              <HelloWorldFunctionalComponent />
+            </td>
+          </tr>
+          <tr>
+            <td>Class component</td>
+            <td>
+              <HelloWorldClassComponent />
+            </td>
+          </tr>
+          <tr>
+            <td>Class pure component</td>
+            <td>
+              <HelloWorldClassPureComponent />
+            </td>
+          </tr>
+          <tr>
+            <td>createElement component</td>
+            <td>
+              {React.createElement("h3", null, "Hello, World!")}
+            </td>
+          </tr>
+        </table>
       </header>
     </div>
   );
