@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-function HelloWorldFunctionalComponent(props: any) {
-    return <h1>Hello, World!</h1>;
+function HelloWorldFunctionalComponent() {
+    return <h3>Hello, World!</h3>;
 }
 
 export default HelloWorldFunctionalComponent;
