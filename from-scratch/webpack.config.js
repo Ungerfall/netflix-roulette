@@ -1,10 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = {
+var config = {
   context: path.join(__dirname, 'src'),
   entry: './index.tsx',
-  devtool: "source-map",
 
   resolve: {
     extensions: ['.ts', '.tsx', '.js']
@@ -27,7 +26,19 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'src', 'index.html')
     })
-  ],
+  ]
+};
 
-  watch: false
+module.exports = (env, argv) => {
+  if (argv.mode === 'development') {
+    config.devtool = 'inline-source-map';
+    config.watch = false;
+  }
+
+  if (argv.mode === 'production') {
+    config.devtool = 'source-map';
+    config.watch = false;
+  }
+
+  return config;
 }

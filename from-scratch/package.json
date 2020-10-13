@@ -5,6 +5,7 @@
   "main": "index.html",
   "scripts": {
     "build": "webpack --mode development",
+    "build-prod": "webpack --mode=production",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
