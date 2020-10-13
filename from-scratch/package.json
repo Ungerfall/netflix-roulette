@@ -2,7 +2,7 @@
   "name": "from-scratch",
   "version": "1.0.0",
   "description": "reactjs project without create-react-app",
-  "main": "index.js",
+  "main": "index.html",
   "scripts": {
     "build": "webpack --mode development",
     "type-check": "tsc --noEmit",
@@ -23,7 +23,6 @@
     "babel-loader": "^8.1.0",
     "html-webpack-plugin": "^4.5.0",
     "jest": "^26.5.2",
-    "react": "^16.13.1",
     "react-redux": "^7.2.1",
     "react-router": "^5.2.0",
     "redux": "^4.0.5",
@@ -35,6 +34,7 @@
   "dependencies": {
     "@types/react": "^16.9.52",
     "@types/react-dom": "^16.9.8",
+    "react": "^16.13.1",
     "react-dom": "^16.13.1"
   }
 }
