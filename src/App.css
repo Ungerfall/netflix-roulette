@@ -1,43 +1,231 @@
-.App {
+:root {
+  background-color: #555555;
+  color: #FFFFFF;
+}
+
+main {
+  background-color: #232323;
+  margin-top: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+input[type="button"] {
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+#header {
+  background-color: #232323;
+  height: 250px;
+}
+
+#header span:first-of-type {
+  margin-left: 50px;
+}
+
+#header > span {
+  position: relative;
+  top: 25px;
+}
+
+#header > div {
+  margin-left: 100px;
+  position: relative;
+  top: 30px;
+}
+
+span.netflix {
+  font-weight: bold;
+}
+
+span.netflix-color {
+  color: #F65261;
+}
+
+#footer {
   text-align: center;
+  background-color: #424242;
+  height: 50px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#footer > span {
+  position: relative;
+  top: 12px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.inline-div {
+  display: inline-block;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#btn-add-movie {
+  float: right;
+  color: #F65261;
+  background-color: rgba(55, 55, 55, 0.8);
+  border-style: none;
+  height: 40px;
+  width: 120px;
+  margin-top: 20px;
+  margin-right: 50px;
+}
+
+#find-your-movie {
+  font-size: 20px;
+}
+
+#btn-search {
+  background-color: #F65261;
+  color: #FFFFFF;
+  border-style: none;
+  margin-right: 100px;
+  height: 45px;
+  width: 150px;
+  font-size: medium;
+  float: right;
+}
+
+#txt-search {
+  height: 40px;
+  width: calc(100% - 280px);
+  border-radius: 3px;
+  opacity: 0.3;
+  padding-right: 10px;
+}
+
+#genre-filter-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
+  padding-top: 10px;
 }
 
-table, th, td {
-  border: 1px solid gray;
-  padding: 5px;
+#genre-filter-sortby span {
+  color: #555555;
 }
 
-.App-link {
-  color: #61dafb;
+#genre-filter-sortby select {
+  margin-left: 20px;
+  background-color: #232323;
+  border-style: none;
+  color: #FFFFFF;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#genre-filter-radio label {
+  display: inline-block;
+  margin-left: 5px;
+}
+
+#genre-filter-radio label:hover {
+  cursor: pointer;
+}
+
+#genre-filter-line {
+  height: 5px;
+  background-color: #424242;
+}
+
+.movies-container {
+  align-self: center;
+  display: grid;
+  grid-template-columns: repeat(3, 325px);
+  grid-auto-rows: 550px;
+  gap: 2rem;
+  width: auto;
+  margin: 0;
+}
+
+.movie-card {
+  width: auto;
+  margin: 0;
+  position: relative;
+}
+
+.movie-card img {
+  border: 1px;
+  border-style: solid;
+  border-color: #FFFFFF;
+  margin-bottom: 15px;
+}
+
+.movie-card span:first-of-type {
+  font-size: larger;
+}
+
+.movie-card span:nth-of-type(2) {
+  float: right;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 1px solid #757575;
+  border-radius: 3px;
+}
+
+.movie-card div {
+  color: #757575;
+}
+
+.movie-card:hover .movie-card-menu {
+  display: block;
+}
+
+.movie-card-menu {
+    width: 32px;
+    height: 32px;
+    background: black;
+    margin: 20px auto;
+    border-radius: 50%;
+    position: absolute;
+    top: 0px;
+    right: 15px;
+    display: none;
+}
+
+.movie-card-menu::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 6px;
+    margin-left: -2px;
+    background: hsl(0, 0%, 100%);
+    border-radius: 50%;
+    width: 4px;
+    height: 4px;
+    box-shadow: 0px 8px white, 0px 16px white;
+}
+
+.dropdown-content {
+  display: none;
+  position: relative;
+  margin-top: 0px;
+  left: -125px;
+  background-color: #232323;
+  min-width: 160px;
+  overflow: auto;
+  z-index: 1;
+  padding-left: 0;
+  border-radius: 5%;
+}
+
+.dropdown-content-show {
+  display: block;
+}
+
+.dropdown-content input {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  border-style: none;
+  background-color: #232323;
+  color: #FFFFFF;
+  outline: none;
+}
+
+.dropdown-content li {
+  text-align: left;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  color: #FFFFFF
+}
+
+.dropdown-content li:hover {
+  background-color: #F65261;
 }
