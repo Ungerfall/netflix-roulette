@@ -21,14 +21,12 @@ class MovieCard extends Component<MovieCardProps, MovieCardState> {
                 <img src={this.props.movie.imageSrc} alt="movie's poster" />
                 <div className="movie-card-menu" onClick={() => {
                     this.setState(() => ({ showDropdownMenu: true }))
-                                console.log("movie-card-menu");
                 }}>
                     <ul className={"dropdown-content" + (this.state.showDropdownMenu ? " dropdown-content-show" : "")}>
                         <input type="button" value="x"
                             onClick={(e) => {
                                 e.stopPropagation();
                                 this.setState(() => ({ showDropdownMenu: false }));
-                                console.log("x button");
                             }} />
                         <li>Edit</li>
                         <li>Delete</li>
