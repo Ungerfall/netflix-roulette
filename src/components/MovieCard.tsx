@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Movie } from '../models/movie';
+import { MovieCardDto } from '../models/movie';
 import './../App.css';
 
 type MovieCardProps = {
-    movie: Movie
+    movie: MovieCardDto
 };
 
 type MovieCardState = {

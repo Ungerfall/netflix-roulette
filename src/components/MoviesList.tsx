@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Movie } from '../models/movie';
+import { MovieCardDto } from '../models/movie';
 import '../App.css';
 import MovieCard from './MovieCard';
 
 type MoviesListProps = {
-    movies: Movie[]
+    movies: MovieCardDto[]
 };
 
 class MoviesList extends Component<MoviesListProps> {

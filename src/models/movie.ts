@@ -3,5 +3,9 @@ export interface Movie {
     releaseDate: Date;
     genres: string[];
     imageSrc: string | undefined;
-    id: string
+    id: string;
+    overview: string;
+    runtime: string;
 }
+
+export type MovieCardDto = Pick<Movie, "title" | "releaseDate" | "genres" | "imageSrc" | "id">;
