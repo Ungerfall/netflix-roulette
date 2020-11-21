@@ -34,7 +34,7 @@ class MovieCard extends Component<MovieCardProps, MovieCardState> {
                 </div>
                 <span>{this.props.movie.title}</span>
                 <span>{this.props.movie.releaseDate.getFullYear()}</span>
-                <div>{this.props.movie.genres.join(",")}</div>
+                <div>{this.props.movie.genre}</div>
             </div>
         );
     }

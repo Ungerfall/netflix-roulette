@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import '../App.css';
 import { Genres } from '../models/genres';
 
+const filterValues: Genres[] = [
+    Genres.all,
+    Genres.documentary,
+    Genres.comedy,
+    Genres.horror,
+    Genres.crime,
+];
+
 const genreCheckedStyle = {
     height: '5px',
     backgroundColor: '#F65261',
@@ -25,36 +33,16 @@ class GenreFilter extends Component<GenreFilterProps, GenreFilterState> {
             <>
                 <div id="genre-filter-container">
                     <div id="genre-filter-radio">
-                        <label onClick={() => this.setSelected(Genres.all)}>{Genres.all}
-                            <div style={
-                                this.state.selected === Genres.all
-                                ? genreCheckedStyle
-                                : genreEmptyStyle} />
-                        </label>
-                        <label onClick={() => this.setSelected(Genres.documentary)}>{Genres.documentary}
-                            <div style={
-                                this.state.selected === Genres.documentary
-                                ? genreCheckedStyle
-                                : genreEmptyStyle} />
-                        </label>
-                        <label onClick={() => this.setSelected(Genres.comedy)}>{Genres.comedy}
-                            <div style={
-                                this.state.selected === Genres.comedy
-                                ? genreCheckedStyle
-                                : genreEmptyStyle} />
-                        </label>
-                        <label onClick={() => this.setSelected(Genres.horror)}>{Genres.horror}
-                            <div style={
-                                this.state.selected === Genres.horror
-                                ? genreCheckedStyle
-                                : genreEmptyStyle} />
-                        </label>
-                        <label onClick={() => this.setSelected(Genres.crime)}>{Genres.crime}
-                            <div style={
-                                this.state.selected === Genres.crime
-                                ? genreCheckedStyle
-                                : genreEmptyStyle} />
-                        </label>
+                        {filterValues.map(genre =>{
+                            return (
+                                <label key={genre} onClick={() => this.setSelected(genre)}>{genre.toUpperCase()}
+                                    <div style={
+                                        this.state.selected === genre
+                                        ? genreCheckedStyle
+                                        : genreEmptyStyle} />
+                                </label>
+                            );
+                        })}
                     </div>
                     <div id="genre-filter-sortby">
                         <span>SORT BY</span>
@@ -71,7 +59,7 @@ class GenreFilter extends Component<GenreFilterProps, GenreFilterState> {
     }
 
     setSelected = (genre: Genres) => {
-        this.setState((state) => ({
+        this.setState(() => ({
             selected: genre,
         }))
     };

@@ -1,13 +1,11 @@
 export enum Genres {
-    all = "ALL",
-    documentary = "DOCUMENTARY",
-    comedy = "COMEDY",
-    horror = "HORROR",
-    crime = "CRIME"
+    all = "all",
+    documentary = "Documentary",
+    comedy = "Comedy",
+    horror = "Horror",
+    crime = "Crime",
+    actionAndAdventure = "Action & Adventure",
+    drama = "Drama",
+    biography = "Biography",
+    music = "Music",
 };
-
-export class GenresUtils {
-    public static GenresValues(): string[] {
-        return Object.values(Genres);
-    }
-}

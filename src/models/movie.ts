@@ -1,11 +1,13 @@
+import { Genres } from "./genres";
+
 export interface Movie {
     title: string;
     releaseDate: Date;
-    genres: string[];
+    genre: Genres | undefined;
     imageSrc: string | undefined;
     id: string;
     overview: string;
     runtime: string;
 }
 
-export type MovieCardDto = Pick<Movie, "title" | "releaseDate" | "genres" | "imageSrc" | "id">;
+export type MovieCardDto = Pick<Movie, "title" | "releaseDate" | "genre" | "imageSrc" | "id">;
