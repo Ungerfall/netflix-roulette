@@ -4,6 +4,7 @@ import { Genres } from '../models/genres';
 import { Movie } from '../models/movie';
 import { DateExtensions } from '../utils/DateExtensions';
 import { GenresExtensions } from '../utils/GenresExtensions';
+import { uuidv4 } from '../utils/uuid';
 
 const Container = styled.main`
     background-color: #232323;
@@ -108,7 +109,7 @@ class AddMovie extends Component<AddMovieProps, AddMovieState> {
             imageSrc: "",
             overview: "",
             runtime: "",
-            id: "",
+            id: uuidv4(),
         }
     };
 
@@ -122,13 +123,9 @@ class AddMovie extends Component<AddMovieProps, AddMovieState> {
                 imageSrc: "",
                 overview: "",
                 runtime: "",
-                id: ""
+                id: uuidv4(),
             }
         }))
-    };
-
-    generateId = (movie: Movie): string => {
-        return (Object.values(movie).join("-"));
     };
 
     onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
