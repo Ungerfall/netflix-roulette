@@ -10,6 +10,4 @@ export interface Movie {
     runtime: string;
 };
 
-export type MovieForEdit = Omit<Movie, "id">;
-
 export type MovieForMovieCard = Pick<Movie, "title" | "releaseDate" | "genre" | "imageSrc" | "id">;

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { MovieCardDto } from '../models/movie';
+import { MovieForMovieCard } from '../models/movie';
 import './../App.css';
 
 type MovieCardProps = {
-    movie: MovieCardDto
+    movie: MovieForMovieCard,
+    onEdit: (movie: MovieForMovieCard) => void,
+    onDelete: (movie: MovieForMovieCard) => void,
 };
 
 type MovieCardState = {
@@ -28,8 +30,8 @@ class MovieCard extends Component<MovieCardProps, MovieCardState> {
                                 e.stopPropagation();
                                 this.setState(() => ({ showDropdownMenu: false }));
                             }} />
-                        <li>Edit</li>
-                        <li>Delete</li>
+                        <li onClick={() => this.props.onEdit(this.props.movie)}>Edit</li>
+                        <li onClick={() => this.props.onDelete(this.props.movie)}>Delete</li>
                     </ul>
                 </div>
                 <span>{this.props.movie.title}</span>
