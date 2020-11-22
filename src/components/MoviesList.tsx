@@ -7,13 +7,16 @@ type MoviesListProps = {
     movies: Record<string, MovieForMovieCard>,
     onMovieEdit: (movie: MovieForMovieCard) => void,
     onMovieDelete: (movie: MovieForMovieCard) => void,
+    sortComparer: (a: MovieForMovieCard, b: MovieForMovieCard) => number,
 };
 
 class MoviesList extends Component<MoviesListProps> {
     render() {
         return (
             <div className="movies-container">
-                {Object.values(this.props.movies).map(movie => {
+                {Object.values(this.props.movies)
+                    .sort(this.props.sortComparer)
+                    .map(movie => {
                     return <MovieCard
                         onEdit={this.props.onMovieEdit}
                         onDelete={this.props.onMovieDelete}

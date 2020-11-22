@@ -21,7 +21,9 @@ type GenreFilterState = {
     selected: Genres
 };
 
-type GenreFilterProps = { };
+type GenreFilterProps = {
+    onSortByChange: (e: React.ChangeEvent<HTMLSelectElement>) => void,
+};
 
 class GenreFilter extends Component<GenreFilterProps, GenreFilterState> {
     state: GenreFilterState = {
@@ -46,7 +48,7 @@ class GenreFilter extends Component<GenreFilterProps, GenreFilterState> {
                     </div>
                     <div id="genre-filter-sortby">
                         <span>SORT BY</span>
-                        <select id="sort-by">
+                        <select id="sort-by" onChange={this.props.onSortByChange}>
                             <option value="releaseDate">RELEASE DATE</option>
                             <option value="genre">GENRE</option>
                             <option value="title">TITLE</option>
