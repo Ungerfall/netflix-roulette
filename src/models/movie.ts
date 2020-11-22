@@ -8,6 +8,8 @@ export interface Movie {
     id: string;
     overview: string;
     runtime: string;
-}
+};
 
-export type MovieCardDto = Pick<Movie, "title" | "releaseDate" | "genre" | "imageSrc" | "id">;
+export type MovieForEdit = Omit<Movie, "id">;
+
+export type MovieForMovieCard = Pick<Movie, "title" | "releaseDate" | "genre" | "imageSrc" | "id">;
