@@ -1,16 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Header as HeaderLayout } from './Header.style';
 
-class Header extends Component {
-    render() {
-        return (
-            <>
-                <header id="header">
-                    <span className="netflix netflix-color">netflix</span>
-                    <span className="netflix-color">roulette</span>
-                </header>
-            </>
-        );
-    }
-}
+const Header: React.FC = () => {
+    return (
+        <HeaderLayout>
+            <span className="netflix netflix-color">netflix</span>
+            <span className="netflix-color">roulette</span>
+        </HeaderLayout>
+    );
+};
 
 export default Header;
