@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Footer as FooterLayout } from './Footer.style';
 
-class Footer extends Component {
-    render() {
-        return (
-            <footer id="footer">
-                <span className="netflix netflix-color">netflix</span>
-                <span className="netflix-color">roulette</span>
-            </footer>
-        );
-    }
-}
+const Footer: React.FC = () => {
+    return (
+        <FooterLayout>
+            <span className="bold netflix-color">netflix</span>
+            <span className="netflix-color">roulette</span>
+        </FooterLayout>
+    );
+};
 
 export default Footer;

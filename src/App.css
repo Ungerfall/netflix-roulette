@@ -38,17 +38,6 @@ span.netflix-color {
   color: #F65261;
 }
 
-#footer {
-  text-align: center;
-  background-color: #424242;
-  height: 50px;
-}
-
-#footer > span {
-  position: relative;
-  top: 12px;
-}
-
 .inline-div {
   display: inline-block;
 }
