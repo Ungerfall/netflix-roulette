@@ -60,28 +60,6 @@ span.netflix-color {
   left: 100px;
 }
 
-#btn-search {
-  background-color: #F65261;
-  color: #FFFFFF;
-  border-style: none;
-  height: 45px;
-  width: 150px;
-  font-size: medium;
-  position: absolute;
-  top: 150px;
-  right: 100px;
-}
-
-#txt-search {
-  height: 40px;
-  width: calc(100% - 380px);
-  border-radius: 3px;
-  opacity: 0.3;
-  position: absolute;
-  left: 100px;
-  top: 150px;
-}
-
 #genre-filter-container {
   display: flex;
   justify-content: space-between;

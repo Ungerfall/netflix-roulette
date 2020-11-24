@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Button, TextInput } from './Search.style';
 
-class Search extends Component {
-    render() {
-        return (
-            <>
-            <input type="text" id="txt-search" placeholder="What do you want to watch?" />
-            <input type="button" id="btn-search" value="SEARCH" />
-            </>
-        );
-    }
-}
+const Search: React.FC = () => {
+    return (
+        <>
+        <TextInput id="txt-search" placeholder="What do you want to watch?" />
+        <Button id="btn-search" value="SEARCH" />
+        </>
+    );
+};
 
 export default Search;
