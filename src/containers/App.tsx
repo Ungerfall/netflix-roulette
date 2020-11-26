@@ -175,7 +175,7 @@ class App extends Component<AppProps, AppState> {
                 <Header />
                 {this.state.contextType === AppContextType.AddMovie
                     ? <AddMovie onClose={this.closeModal}
-                        onSumbit={this.submitAddMovie} />
+                        onSubmit={this.submitAddMovie} />
                     : this.state.contextType === AppContextType.EditMovie
                     ? <EditMovie onClose={this.closeModal}
                         onSave={this.saveEditMovie}

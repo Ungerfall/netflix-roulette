@@ -1,107 +1,22 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
 import { Genres } from '../models/genres';
 import { Movie } from '../models/movie';
 import { DateExtensions } from '../utils/DateExtensions';
 import { GenresExtensions } from '../utils/GenresExtensions';
 import { uuidv4 } from '../utils/uuid';
-
-const Container = styled.main`
-    background-color: #232323;
-    margin-top: 120px;
-    margin-right: 20%;
-    margin-bottom: 120px;
-    margin-left: 20%;
-    height: 1000px;
-    color: #FFFFFF;
-`;
-
-const CloseButton = styled.input.attrs(props => ({
-    type: "button",
-    value: "x"
-}))`
-    background-color: #232323;
-    color: #FFFFFF;
-    font-size: 2em;
-    float: right;
-    outline: none;
-    border-style: none;
-    margin-right: 30px;
-    margin-top: 30px;
-`;
-
-const AddMovieLabel = styled.h1`
-    margin-left: 75px;
-    padding-top: 100px;
-`;
-
-const Label = styled.h4`
-    color: #F65261;
-    margin-left: 75px;
-`;
-
-const Input = styled.input`
-    margin-left: 75px;
-    color: #FFFFFF;
-    height: 40px;
-    border-radius: 4px;
-    background-color: #434343;
-    border-style: none;
-    width: calc(100% - 150px);
-    padding-left: 15px;
-`;
-
-const GenreSelect = styled.select`
-    margin-left: 75px;
-    color: #FFFFFF;
-    height: 40px;
-    border-radius: 4px;
-    background-color: #434343;
-    border-style: none;
-    width: calc(100% - 135px);
-    padding-left: 15px;
-`;
-
-const ButtonsContainer = styled.div`
-    float: right;
-    margin-right: 75px;
-    margin-top: 100px;
-`;
-
-const ButtonBase = styled.input.attrs(props => ({
-    type: "button"
-}))`
-    display: inline-block;
-    border-style: solid;
-    border-radius: 4px;
-    border-color: #F65261;
-    color: #F65261;
-    width: 160px;
-    height: 50px;
-    font-size: large;
-`;
-
-const ResetButton = styled(ButtonBase)`
-    background-color: #232323;
-    margin-right: 5px;
-`;
-
-const SubmitButton = styled(ButtonBase)`
-    background-color: #F65261;
-    color: #FFFFFF;
-`;
+import { Layout } from './AddMovie.style';
 
 type AddMovieProps = {
     onClose: () => void,
-    onSumbit: (movie: Movie) => void,
+    onSubmit: (movie: Movie) => void,
 };
 
 type AddMovieState = {
     movie: Movie
 };
 
-class AddMovie extends Component<AddMovieProps, AddMovieState> {
-    state: AddMovieState = {
+const AddMovie: React.FC<AddMovieProps> = ({ onClose, onSubmit }) => {
+    const init: AddMovieState = {
         movie: {
             genre: Genres.all,
             title: "",
@@ -112,9 +27,10 @@ class AddMovie extends Component<AddMovieProps, AddMovieState> {
             id: uuidv4(),
         }
     };
+    const [state, setState] = useState(init);
 
-    resetMovie = () => {
-        this.setState(prev => ({
+    const resetMovie = () => {
+        setState(prev => ({
             ...prev,
             movie: {
                 genre: Genres.all,
@@ -128,80 +44,86 @@ class AddMovie extends Component<AddMovieProps, AddMovieState> {
         }))
     };
 
-    onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
-        this.setState(prev => ({ movie: { ...prev.movie, title: value } }))
+        setState(prev => ({ movie: { ...prev.movie, title: value } }))
     };
 
-    onReleaseDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onReleaseDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { valueAsDate } = e.target;
         if (valueAsDate) {
-            this.setState(prev => ({ movie: { ...prev.movie, releaseDate: valueAsDate } }));
+            setState(prev => ({ movie: { ...prev.movie, releaseDate: valueAsDate } }));
         }
     };
 
-    onMovieUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onMovieUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
-        this.setState(prev => ({ movie: { ...prev.movie, imageSrc: value } }));
+        setState(prev => ({ movie: { ...prev.movie, imageSrc: value } }));
     };
 
-    onGenreChange = (e: React.FormEvent<HTMLSelectElement>) => {
+    const onGenreChange = (e: React.FormEvent<HTMLSelectElement>) => {
         const value: Genres = e.currentTarget.value as Genres;
         if (value) {
-            this.setState(prev => ({ movie: { ...prev.movie, genre: value } }));
+            setState(prev => ({ movie: { ...prev.movie, genre: value } }));
         }
     };
 
-    onOverviewChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onOverviewChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
-        this.setState(prev => ({ movie: { ...prev.movie, overview: value } }));
+        setState(prev => ({ movie: { ...prev.movie, overview: value } }));
     };
 
-    onRuntimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onRuntimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
-        this.setState(prev => ({ movie: { ...prev.movie, runtime: value } }));
+        setState(prev => ({ movie: { ...prev.movie, runtime: value } }));
     };
 
-    render() {
-        return (
-            <Container>
-                <CloseButton onClick={this.props.onClose} />
-                <AddMovieLabel>ADD MOVIE</AddMovieLabel>
-                <Label>TITLE</Label>
-                <Input type="text" placeholder="Title here" value={this.state.movie.title} onChange={this.onTitleChange} />
-                <Label>RELEASE DATE</Label>
-                <Input type="date"
-                    placeholder="Select date"
-                    value={DateExtensions.toYyyyMmDdFormat(this.state.movie.releaseDate)}
-                    onChange={this.onReleaseDateChange} />
-                <Label>MOVIE URL</Label>
-                <Input type="text"
-                    placeholder="Movie URL here"
-                    value={this.state.movie.imageSrc}
-                    onChange={this.onMovieUrlChange} />
-                <Label>GENRE</Label>
-                <GenreSelect value={this.state.movie.genre} onChange={this.onGenreChange}>
-                    {GenresExtensions.GenresValues().map(genre => {
-                        return <option key={genre} value={genre}>{genre}</option>;
-                    })}
-                </GenreSelect>
-                <Label>OVERVIEW</Label>
-                <Input type="text"
-                    placeholder="Overview here"
-                    value={this.state.movie.overview}
-                    onChange={this.onOverviewChange} />
-                <Label>RUNTIME</Label>
-                <Input type="text"
-                    placeholder="Runtime here"
-                    value={this.state.movie.runtime}
-                    onChange={this.onRuntimeChange} />
-                <ButtonsContainer>
-                    <ResetButton value="RESET" onClick={this.resetMovie} />
-                    <SubmitButton value="SUBMIT" onClick={() => this.props.onSumbit(this.state.movie)} />
-                </ButtonsContainer>
-            </Container>
-        );
-    }
+    return (
+        <Layout>
+            <input type="button" value="x" onClick={onClose} className="btn-close" />
+            <h1>ADD MOVIE</h1>
+            <h4>TITLE</h4>
+            <input type="text"
+                placeholder="Title here"
+                value={state.movie.title}
+                onChange={onTitleChange}
+                className="input" />
+            <h4>RELEASE DATE</h4>
+            <input type="date"
+                placeholder="Select date"
+                value={DateExtensions.toYyyyMmDdFormat(state.movie.releaseDate)}
+                onChange={onReleaseDateChange}
+                className="input" />
+            <h4>MOVIE URL</h4>
+            <input type="text"
+                placeholder="Movie URL here"
+                value={state.movie.imageSrc}
+                onChange={onMovieUrlChange}
+                className="input" />
+            <h4>GENRE</h4>
+            <select value={state.movie.genre} onChange={onGenreChange} className="select">
+                {GenresExtensions.GenresValues().map(genre => {
+                    return <option key={genre} value={genre}>{genre}</option>;
+                })}
+            </select>
+            <h4>OVERVIEW</h4>
+            <input type="text"
+                placeholder="Overview here"
+                value={state.movie.overview}
+                onChange={onOverviewChange}
+                className="input" />
+            <h4>RUNTIME</h4>
+            <input type="text"
+                placeholder="Runtime here"
+                value={state.movie.runtime}
+                onChange={onRuntimeChange}
+                className="input" />
+            <div className="actions-container">
+                <input type="button" value="RESET" onClick={resetMovie} className="btn-action btn-reset" />
+                <input type="button" value="SUBMIT" onClick={() => onSubmit(state.movie)} className="btn-action btn-submit" />
+            </div>
+        </Layout>
+    );
 }
 
 export default AddMovie;
