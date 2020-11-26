@@ -60,37 +60,6 @@ span.netflix-color {
   left: 100px;
 }
 
-#genre-filter-container {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 10px;
-}
-
-#genre-filter-sortby span {
-  color: #555555;
-}
-
-#genre-filter-sortby select {
-  margin-left: 20px;
-  background-color: #232323;
-  border-style: none;
-  color: #FFFFFF;
-}
-
-#genre-filter-radio label {
-  display: inline-block;
-  margin-left: 5px;
-}
-
-#genre-filter-radio label:hover {
-  cursor: pointer;
-}
-
-#genre-filter-line {
-  height: 5px;
-  background-color: #424242;
-}
-
 .movies-container {
   align-self: center;
   display: grid;
