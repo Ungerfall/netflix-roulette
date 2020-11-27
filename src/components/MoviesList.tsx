@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { MovieForMovieCard } from '../models/movie';
-import '../App.css';
 import MovieCard from './MovieCard';
+import { Layout } from './MovieList.style';
 
 type MoviesListProps = {
     movies: Record<string, MovieForMovieCard>,
@@ -10,22 +10,20 @@ type MoviesListProps = {
     sortComparer: (a: MovieForMovieCard, b: MovieForMovieCard) => number,
 };
 
-class MoviesList extends Component<MoviesListProps> {
-    render() {
-        return (
-            <div className="movies-container">
-                {Object.values(this.props.movies)
-                    .sort(this.props.sortComparer)
-                    .map(movie => {
+const MoviesList: React.FC<MoviesListProps> = ({ movies, onMovieEdit, onMovieDelete, sortComparer }) => {
+    return (
+        <Layout>
+            {Object.values(movies)
+                .sort(sortComparer)
+                .map(movie => {
                     return <MovieCard
-                        onEdit={this.props.onMovieEdit}
-                        onDelete={this.props.onMovieDelete}
+                        onEdit={onMovieEdit}
+                        onDelete={onMovieDelete}
                         movie={movie}
-                        key={movie.id}/>
+                        key={movie.id} />
                 })}
-            </div>
-        );
-    }
-}
+        </Layout>
+    );
+};
 
 export default MoviesList;
