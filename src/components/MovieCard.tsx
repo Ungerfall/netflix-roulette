@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { MovieForMovieCard } from '../models/movie';
-import './../App.css';
+import { Layout } from './MovieCard.style';
 
 type MovieCardProps = {
     movie: MovieForMovieCard,
@@ -12,34 +12,33 @@ type MovieCardState = {
     showDropdownMenu: boolean
 };
 
-class MovieCard extends Component<MovieCardProps, MovieCardState> {
-    state: MovieCardState = {
+const MovieCard: React.FC<MovieCardProps> = ({ movie, onEdit, onDelete }) => {
+    const init: MovieCardState = {
         showDropdownMenu: false
     };
+    const [state, setState] = useState(init);
 
-    render() {
-        return (
-            <div className="movie-card">
-                <img src={this.props.movie.imageSrc} alt="movie's poster" />
-                <div className="movie-card-menu" onClick={() => {
-                    this.setState(() => ({ showDropdownMenu: true }))
-                }}>
-                    <ul className={"dropdown-content" + (this.state.showDropdownMenu ? " dropdown-content-show" : "")}>
-                        <input type="button" value="x"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                this.setState(() => ({ showDropdownMenu: false }));
-                            }} />
-                        <li onClick={() => this.props.onEdit(this.props.movie)}>Edit</li>
-                        <li onClick={() => this.props.onDelete(this.props.movie)}>Delete</li>
-                    </ul>
-                </div>
-                <span>{this.props.movie.title}</span>
-                <span>{this.props.movie.releaseDate.getFullYear()}</span>
-                <div>{this.props.movie.genre}</div>
+    return (
+        <Layout>
+            <img src={movie.imageSrc} alt="movie's poster" />
+            <div className="movie-card-menu" onClick={() => {
+                setState(() => ({ showDropdownMenu: true }))
+            }}>
+                <ul className={"dropdown-content" + (state.showDropdownMenu ? " dropdown-content-show" : "")}>
+                    <input type="button" value="x"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setState(() => ({ showDropdownMenu: false }));
+                        }} />
+                    <li onClick={() => onEdit(movie)}>Edit</li>
+                    <li onClick={() => onDelete(movie)}>Delete</li>
+                </ul>
             </div>
-        );
-    }
+            <span>{movie.title}</span>
+            <span>{movie.releaseDate.getFullYear()}</span>
+            <div>{movie.genre}</div>
+        </Layout>
+    );
 }
 
 export default MovieCard;
