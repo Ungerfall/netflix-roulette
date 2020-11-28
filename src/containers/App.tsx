@@ -1,67 +1,16 @@
-import React, { Component } from 'react';
+import React, {  useState } from 'react';
 import Footer from '../components/Footer';
 import MoviesList from '../components/MoviesList';
 import Search from '../components/Search';
-import { Movie, MovieForMovieCard } from '../models/movie';
+import { Movie, MovieForMovieCard, moviesStub } from '../models/movie';
 import '../App.css';
 import GenreFilter from '../components/GenreFilter';
 import Header from '../components/Header';
 import AddMovie from '../components/AddMovie';
-import { Genres } from '../models/genres';
-import { uuidv4 } from '../utils/uuid';
 import EditMovie from '../components/EditMovie';
 import DeleteMovie from '../components/DeleteMovie';
 import { datesComparer, stringComparer } from '../utils/comparers';
-
-const imagePlaceholder: string = "http://placehold.it/325x450?text=movie-poster";
-
-const moviesStub: Movie[] = [
-    {
-        title: "Pulp Fiction",
-        genre: Genres.actionAndAdventure,
-        releaseDate: new Date(2004, 12, 22),
-        imageSrc: imagePlaceholder,
-        id: uuidv4(),
-        overview: "",
-        runtime: "",
-    },
-    {
-        title: "Bohemian Rhapsody",
-        genre: Genres.drama,
-        releaseDate: new Date(2003, 12, 22),
-        imageSrc: imagePlaceholder,
-        id: uuidv4(),
-        overview: "",
-        runtime: "",
-    },
-    {
-        title: "Kill Bill: Vol 2",
-        genre: Genres.drama,
-        releaseDate: new Date(1994, 12, 22),
-        imageSrc: imagePlaceholder,
-        id: uuidv4(),
-        overview: "",
-        runtime: "",
-    },
-    {
-        title: "Reservoir dogs",
-        genre: Genres.drama,
-        releaseDate: new Date(1994, 12, 22),
-        imageSrc: imagePlaceholder,
-        id: uuidv4(),
-        overview: "",
-        runtime: "",
-    },
-    {
-        title: "Inception",
-        genre: Genres.actionAndAdventure,
-        releaseDate: new Date(2003, 12, 22),
-        imageSrc: imagePlaceholder,
-        id: uuidv4(),
-        overview: "",
-        runtime: "",
-    },
-];
+import { AppContextType } from '../models/appContext';
 
 const moviesDict: Record<string, Movie> = moviesStub
     .reduce(
@@ -73,13 +22,6 @@ const moviesDict: Record<string, Movie> = moviesStub
 
 const foundCount: number = moviesStub.length;
 
-enum AppContextType {
-    Main = 1,
-    AddMovie,
-    EditMovie,
-    DeleteMovie,
-}
-
 type AppProps = {};
 
 type AppState = {
@@ -89,54 +31,55 @@ type AppState = {
     moviesSortComparer: (a: MovieForMovieCard, b: MovieForMovieCard) => number,
 };
 
-class App extends Component<AppProps, AppState> {
-    state: AppState = {
+const App: React.FC<AppProps> = () => {
+    const init: AppState = {
         contextType: AppContextType.Main,
         movies: moviesDict,
         selectedMovie: undefined,
         moviesSortComparer: (a, b) => datesComparer(a.releaseDate, b.releaseDate),
     };
+    const [state, setState] = useState(init);
 
-    closeModal = () => {
-        this.setState(prev => ({ ...prev, contextType: AppContextType.Main }))
+    const closeModal = () => {
+        setState(prev => ({ ...prev, contextType: AppContextType.Main }))
     };
 
-    submitAddMovie = (movie: Movie) => {
-        this.setState(prev => ({
+    const submitAddMovie = (movie: Movie) => {
+        setState(prev => ({
             ...prev,
             contextType: AppContextType.Main,
             movies: { ...prev.movies, [movie.id]: movie }
         }))
     };
 
-    saveEditMovie = (movie: Movie) => {
-        this.setState(prev => ({
+    const saveEditMovie = (movie: Movie) => {
+        setState(prev => ({
             ...prev,
             contextType: AppContextType.Main,
             movies: { ...prev.movies, [movie.id]: movie }
         }));
     };
 
-    clickMovieCardEdit = (movie: MovieForMovieCard) => {
-        this.setState(prev => ({
+    const clickMovieCardEdit = (movie: MovieForMovieCard) => {
+        setState(prev => ({
             ...prev,
             contextType: AppContextType.EditMovie,
             selectedMovie: movie as Movie
         }));
     };
 
-    clickMovieCardDelete = (movie: MovieForMovieCard) => {
-        this.setState(prev => ({
+    const clickMovieCardDelete = (movie: MovieForMovieCard) => {
+        setState(prev => ({
             ...prev,
             contextType: AppContextType.DeleteMovie,
             selectedMovie: movie as Movie
         }));
     };
 
-    confirmDelete = () => {
-        this.setState(prev => {
+    const confirmDelete = () => {
+        setState(prev => {
             const key = prev.selectedMovie?.id as string;
-            const {[key]: value, ...remaning} = prev.movies;
+            const { [key]: value, ...remaning } = prev.movies;
             return ({
                 ...prev,
                 contextType: AppContextType.Main,
@@ -146,10 +89,10 @@ class App extends Component<AppProps, AppState> {
         });
     };
 
-    onSortByChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const onSortByChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const value: string = e.currentTarget.value as string;
         if (value) {
-            this.setState(prev => {
+            setState(prev => {
                 let comparer: (a: MovieForMovieCard, b: MovieForMovieCard) => number;
                 if (value === "releaseDate") {
                     comparer = (a, b) => datesComparer(a.releaseDate, b.releaseDate);
@@ -169,38 +112,35 @@ class App extends Component<AppProps, AppState> {
         }
     };
 
-    render() {
-        return (
-            <>
-                <Header />
-                {this.state.contextType === AppContextType.AddMovie
-                    ? <AddMovie onClose={this.closeModal}
-                        onSubmit={this.submitAddMovie} />
-                    : this.state.contextType === AppContextType.EditMovie
-                    ? <EditMovie onClose={this.closeModal}
-                        onSave={this.saveEditMovie}
-                        movie={this.state.selectedMovie as Movie} />
-                    : this.state.contextType === AppContextType.DeleteMovie
-                    ? <DeleteMovie onConfirm={this.confirmDelete}
-                        onClose={this.closeModal}/>
-                    :
-                    <main id="main">
-                        <input type="button" id="btn-add-movie" value="+ ADD MOVIE"
-                            onClick={() => this.setState(prev => ({ ...prev, contextType: AppContextType.AddMovie }))} />
-                        <p id="find-your-movie">FIND YOR MOVIE</p>
-                        <Search />
-                        <GenreFilter onSortByChange={this.onSortByChange} />
-                        <p><b>{foundCount}</b> movies found</p>
-                        <MoviesList movies={this.state.movies}
-                            onMovieEdit={this.clickMovieCardEdit}
-                            onMovieDelete={this.clickMovieCardDelete}
-                            sortComparer={this.state.moviesSortComparer} />
-                    </main>
-                }
-                <Footer />
-            </>
-        );
-    }
+    return (
+        <>
+        <Header /> {state.contextType === AppContextType.AddMovie
+            ? <AddMovie onClose={closeModal}
+                onSubmit={submitAddMovie} />
+            : state.contextType === AppContextType.EditMovie
+            ? <EditMovie onClose={closeModal}
+                onSave={saveEditMovie}
+                movie={state.selectedMovie as Movie} />
+            : state.contextType === AppContextType.DeleteMovie
+            ? <DeleteMovie onConfirm={confirmDelete}
+                onClose={closeModal} />
+            :
+            <main id="main">
+                <input type="button" id="btn-add-movie" value="+ ADD MOVIE"
+                    onClick={() => setState(prev => ({ ...prev, contextType: AppContextType.AddMovie }))} />
+                <p id="find-your-movie">FIND YOR MOVIE</p>
+                <Search />
+                <GenreFilter onSortByChange={onSortByChange} />
+                <p><b>{foundCount}</b> movies found</p>
+                <MoviesList movies={state.movies}
+                    onMovieEdit={clickMovieCardEdit}
+                    onMovieDelete={clickMovieCardDelete}
+                    sortComparer={state.moviesSortComparer} />
+            </main>
+        }
+        <Footer />
+        </>
+    );
 };
 
 export default App;

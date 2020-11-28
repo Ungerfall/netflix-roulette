@@ -15,33 +15,6 @@ input[type="button"] {
   border-radius: 3px;
 }
 
-#header span:first-of-type {
-  margin-left: 50px;
-}
-
-#header span {
-  position: relative;
-  top: 25px;
-}
-
-#header div {
-  margin-left: 100px;
-  position: relative;
-  top: 30px;
-}
-
-span.netflix {
-  font-weight: bold;
-}
-
-span.netflix-color {
-  color: #F65261;
-}
-
-.inline-div {
-  display: inline-block;
-}
-
 #btn-add-movie {
   position: absolute;
   color: #F65261;
