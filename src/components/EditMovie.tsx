@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import useGenres from '../hooks/useGenres';
 import { Genres } from '../models/genres';
 import { Movie } from '../models/movie';
 import { DateExtensions } from '../utils/DateExtensions';
-import { GenresExtensions } from '../utils/GenresExtensions';
 import { Layout } from './EditMovie.style';
 
 type EditMovieProps = {
@@ -20,6 +20,7 @@ const EditMovie: React.FC<EditMovieProps> = ({ onClose, onSave, movie }) => {
         movie: movie
     };
     const [state, setState] = useState(init);
+    const {genres} = useGenres();
 
     const resetMovie = () => {
         setState(prev => ({
@@ -84,7 +85,7 @@ const EditMovie: React.FC<EditMovieProps> = ({ onClose, onSave, movie }) => {
                 className="input" />
             <h4>GENRE</h4>
             <select value={state.movie.genre} onChange={onGenreChange} className="select">
-                {GenresExtensions.GenresValues().map(genre => {
+                {genres.map(genre => {
                     return <option key={genre} value={genre}>{genre}</option>;
                 })}
             </select>
