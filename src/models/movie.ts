@@ -12,9 +12,10 @@ export interface Movie {
 };
 
 export type MovieForMovieCard = Pick<Movie, "title" | "releaseDate" | "genre" | "imageSrc" | "id">;
+export type MoviesComparer = (a: MovieForMovieCard, b: MovieForMovieCard) => number;
 
 const imagePlaceholder: string = "http://placehold.it/325x450?text=movie-poster";
-export const moviesStub: Movie[] = [
+export const getMoviesStub: () => Movie[] = () => [
     {
         title: "Pulp Fiction",
         genre: Genres.actionAndAdventure,
