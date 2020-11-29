@@ -18,7 +18,7 @@ const App: React.FC = () => {
     const [page, setPage] = useState(AppPage.Main);
     const [selectedMovie, setSelectedMovie] = useState<Movie | undefined>();
     const [moviesSortComparer, setMoviesSortComparer]
-        = useState<MoviesComparer>(() => (a: MovieForMovieCard, b: MovieForMovieCard) => datesComparer(a.releaseDate, b.releaseDate));
+        = useState<MoviesComparer>(() => (a: MovieForMovieCard, b: MovieForMovieCard) => datesComparer(a.release_date, b.release_date));
 
     const closeModal = () => {
         setPage(AppPage.Main);
@@ -57,10 +57,10 @@ const App: React.FC = () => {
         if (value) {
             let comparer: (a: MovieForMovieCard, b: MovieForMovieCard) => number;
             if (value === "releaseDate") {
-                comparer = (a, b) => datesComparer(a.releaseDate, b.releaseDate);
+                comparer = (a, b) => datesComparer(a.release_date, b.release_date);
             }
             else if (value === "genre") {
-                comparer = (a, b) => stringComparer(a.genre, b.genre);
+                comparer = (a, b) => stringComparer(a.genres ? a.genres[0] : undefined, b.genres ? b.genres[0] : undefined);
             }
             else {
                 comparer = (a, b) => stringComparer(a.title, b.title);

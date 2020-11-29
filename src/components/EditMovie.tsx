@@ -37,19 +37,19 @@ const EditMovie: React.FC<EditMovieProps> = ({ onClose, onSave, movie }) => {
     const onReleaseDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { valueAsDate } = e.target;
         if (valueAsDate) {
-            setState(prev => ({ movie: { ...prev.movie, releaseDate: valueAsDate } }));
+            setState(prev => ({ movie: { ...prev.movie, release_date: valueAsDate } }));
         }
     };
 
     const onMovieUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
-        setState(prev => ({ movie: { ...prev.movie, imageSrc: value } }));
+        setState(prev => ({ movie: { ...prev.movie, poster_path: value } }));
     };
 
     const onGenreChange = (e: React.FormEvent<HTMLSelectElement>) => {
         const value: Genres = e.currentTarget.value as Genres;
         if (value) {
-            setState(prev => ({ movie: { ...prev.movie, genre: value } }));
+            setState(prev => ({ movie: { ...prev.movie, genres: [value] } }));
         }
     };
 
@@ -74,17 +74,17 @@ const EditMovie: React.FC<EditMovieProps> = ({ onClose, onSave, movie }) => {
             <h4>RELEASE DATE</h4>
             <input type="date"
                 placeholder="Select date"
-                value={DateExtensions.toYyyyMmDdFormat(state.movie.releaseDate)}
+                value={DateExtensions.toYyyyMmDdFormat(state.movie.release_date)}
                 onChange={onReleaseDateChange}
                 className="input" />
             <h4>MOVIE URL</h4>
             <input type="text"
                 placeholder="Movie URL here"
-                value={state.movie.imageSrc}
+                value={state.movie.poster_path}
                 onChange={onMovieUrlChange}
                 className="input" />
             <h4>GENRE</h4>
-            <select value={state.movie.genre} onChange={onGenreChange} className="select">
+            <select value={state.movie.genres ? state.movie.genres[0] : undefined} onChange={onGenreChange} className="select">
                 {genres.map(genre => {
                     return <option key={genre} value={genre}>{genre}</option>;
                 })}

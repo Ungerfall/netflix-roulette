@@ -20,7 +20,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onEdit, onDelete }) => {
 
     return (
         <Layout>
-            <img src={movie.imageSrc} alt="movie's poster" />
+            <img src={movie.poster_path} alt="movie's poster" />
             <div className="movie-card-menu" onClick={() => {
                 setState(() => ({ showDropdownMenu: true }))
             }}>
@@ -35,8 +35,8 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onEdit, onDelete }) => {
                 </ul>
             </div>
             <span>{movie.title}</span>
-            <span>{movie.releaseDate.getFullYear()}</span>
-            <div>{movie.genre}</div>
+            <span>{movie.release_date.getFullYear()}</span>
+            <div>{movie.genres?.join(",")}</div>
         </Layout>
     );
 }
