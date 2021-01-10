@@ -7,10 +7,17 @@ type MoviesListProps = {
     movies: Record<string, MovieForMovieCard>,
     onMovieEdit: (movie: MovieForMovieCard) => void,
     onMovieDelete: (movie: MovieForMovieCard) => void,
+    onMoviePosterClick: (movie: MovieForMovieCard) => void,
     sortComparer: (a: MovieForMovieCard, b: MovieForMovieCard) => number,
 };
 
-const MoviesList: React.FC<MoviesListProps> = ({ movies, onMovieEdit, onMovieDelete, sortComparer }) => {
+const MoviesList: React.FC<MoviesListProps> = ({
+    movies,
+    onMovieEdit,
+    onMovieDelete,
+    onMoviePosterClick,
+    sortComparer
+}) => {
     return (
         <Layout>
             {Object.values(movies)
@@ -19,6 +26,7 @@ const MoviesList: React.FC<MoviesListProps> = ({ movies, onMovieEdit, onMovieDel
                     return <MovieCard
                         onEdit={onMovieEdit}
                         onDelete={onMovieDelete}
+                        onPosterClick={onMoviePosterClick}
                         movie={movie}
                         key={movie.id} />
                 })}

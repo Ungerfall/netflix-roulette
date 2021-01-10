@@ -6,13 +6,14 @@ type MovieCardProps = {
     movie: MovieForMovieCard,
     onEdit: (movie: MovieForMovieCard) => void,
     onDelete: (movie: MovieForMovieCard) => void,
+    onPosterClick: (movie: MovieForMovieCard) => void,
 };
 
 type MovieCardState = {
     showDropdownMenu: boolean
 };
 
-const MovieCard: React.FC<MovieCardProps> = ({ movie, onEdit, onDelete }) => {
+const MovieCard: React.FC<MovieCardProps> = ({ movie, onEdit, onDelete, onPosterClick }) => {
     const init: MovieCardState = {
         showDropdownMenu: false
     };
@@ -20,7 +21,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onEdit, onDelete }) => {
 
     return (
         <Layout>
-            <img src={movie.poster_path} alt="movie's poster" />
+            <img src={movie.poster_path} alt="movie's poster" onClick={() => onPosterClick(movie)} />
             <div className="movie-card-menu" onClick={() => {
                 setState(() => ({ showDropdownMenu: true }))
             }}>
