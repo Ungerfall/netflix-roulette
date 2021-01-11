@@ -12,6 +12,7 @@ import DeleteMovie from '../components/DeleteMovie';
 import { datesComparer, stringComparer } from '../utils/comparers';
 import { AppPage } from '../models/appPage';
 import useMovies from '../hooks/useMovies';
+import MovieDetails from '../components/MovieDetails';
 
 const App: React.FC = () => {
     const {isLoading, movies, setMovies} = useMovies();
@@ -19,6 +20,7 @@ const App: React.FC = () => {
     const [selectedMovie, setSelectedMovie] = useState<Movie | undefined>();
     const [moviesSortComparer, setMoviesSortComparer]
         = useState<MoviesComparer>(() => (a: MovieForMovieCard, b: MovieForMovieCard) => datesComparer(a.release_date, b.release_date));
+    const [showDetails, toggleShowDetails] = useState(false);
 
     const closeModal = () => {
         setPage(AppPage.Main);
@@ -70,33 +72,50 @@ const App: React.FC = () => {
         }
     };
 
+    const handleSearchIconClickOnDetails = () => {
+        toggleShowDetails(false);
+    };
+
+    const handleMoviePosterClick = (m: MovieForMovieCard) => {
+        setSelectedMovie(m as Movie);
+        toggleShowDetails(true);
+    };
+
     return (
         <>
-        <Header /> {page === AppPage.AddMovie
-            ? <AddMovie onClose={closeModal}
-                onSubmit={submitAddMovie} />
+        <Header /> {
+            page === AppPage.AddMovie
+            ? <AddMovie onClose={closeModal} onSubmit={submitAddMovie} />
             : page === AppPage.EditMovie
-            ? <EditMovie onClose={closeModal}
-                onSave={saveEditMovie}
-                movie={selectedMovie as Movie} />
+            ? <EditMovie onClose={closeModal} onSave={saveEditMovie} movie={selectedMovie as Movie} />
             : page === AppPage.DeleteMovie
-            ? <DeleteMovie onConfirm={confirmDelete}
-                onClose={closeModal} />
+            ? <DeleteMovie onConfirm={confirmDelete} onClose={closeModal} />
             :
             <main id="main">
-                <input type="button" id="btn-add-movie" value="+ ADD MOVIE"
-                    onClick={() => setPage(AppPage.AddMovie)} />
-                <p id="find-your-movie">FIND YOR MOVIE</p>
-                <Search />
-                <GenreFilter onSortByChange={onSortByChange} />
-                <p><b>{Object.keys(movies).length}</b> movies found</p>
-                {!isLoading
-                    ? <MoviesList movies={movies}
-                        onMovieEdit={clickMovieCardEdit}
-                        onMovieDelete={clickMovieCardDelete}
-                        sortComparer={moviesSortComparer} />
-                    : <div className="loader" />
+                <div>{
+                    !showDetails
+                    ?
+                    <div id="main-search">
+                        <input type="button" id="btn-add-movie" value="+ ADD MOVIE"
+                            onClick={() => setPage(AppPage.AddMovie)} />
+                        <p id="find-your-movie">FIND YOR MOVIE</p>
+                        <Search />
+                    </div>
+                    : <MovieDetails movie={selectedMovie as Movie} onSearchIconClick={handleSearchIconClickOnDetails} />
                 }
+                </div>
+                <div id="main-bottom">
+                    <GenreFilter onSortByChange={onSortByChange} />
+                    <p><b>{Object.keys(movies).length}</b> movies found</p>
+                    {!isLoading
+                        ? <MoviesList movies={movies}
+                            onMovieEdit={clickMovieCardEdit}
+                            onMovieDelete={clickMovieCardDelete}
+                            onMoviePosterClick={handleMoviePosterClick}
+                            sortComparer={moviesSortComparer} />
+                        : <div className="loader" />
+                    }
+                </div>
             </main>
         }
         <Footer />
