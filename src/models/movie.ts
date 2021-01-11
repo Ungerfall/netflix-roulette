@@ -28,7 +28,11 @@ export const getMoviesStub: () => Movie[] = () => [
         release_date: new Date(2004, 12, 22),
         poster_path: imagePlaceholder,
         id: uuidv4(),
-        overview: "",
+        overview: `
+            Pulp Fiction is a 1994 American crime film written and directed by QT; 
+            it is based on a story by Tarantino and Roger Avary. [4] Starring JT, 
+            SLJ, BW, TR, VR, UT, it tells several stories of criminal Los Angeles.
+        `,
         runtime: "",
         tagline: "tagline",
         vote_average: 4.5,
@@ -56,7 +60,7 @@ export const getMoviesStub: () => Movie[] = () => [
         release_date: new Date(1994, 12, 22),
         poster_path: imagePlaceholder,
         id: uuidv4(),
-        overview: "",
+        overview: "Kill Bill: Vol 2 is a great movie.",
         runtime: "",
         tagline: "tagline",
         vote_average: 4.5,
