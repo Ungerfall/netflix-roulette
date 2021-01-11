@@ -18,7 +18,7 @@ const useMovies = () => {
             )
         );
         // simulate loading
-        setTimeout(() => setIsLoading(false), 3000);
+        setTimeout(() => setIsLoading(false), 1500);
     }, [])
 
     return { isLoading, movies, setMovies };
